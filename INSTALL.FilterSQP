@@ -1,0 +1,11 @@
+Installation of the FilterSQP library for COIN
+
+**********************************************************************
+Note: It is YOUR RESPONSIBILITY to ensure that you are entitled to
+      download and use this third party package.
+**********************************************************************
+
+You need to obtain the source files yourself.
+
+Then put the source files into a subdirectory call 'source' in this
+directory, so that 'source/src' contains the source files (such as filter.f)
