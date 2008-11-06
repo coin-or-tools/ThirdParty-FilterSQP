@@ -1,3 +1,4 @@
 * text=auto !eol
 /INSTALL.FilterSQP -text
 /configure -text
+/filtersqp.patch -text
