@@ -12,7 +12,7 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([ThirdPartyFilterSQP],[1.0stable],[http://projects.coin-or.org/BuildTools/newticket])
+AC_INIT([ThirdPartyFilterSQP],[1.0.0],[http://projects.coin-or.org/BuildTools/newticket])
 
 AC_COPYRIGHT([
 Copyright 2006 International Business Machines and others.
