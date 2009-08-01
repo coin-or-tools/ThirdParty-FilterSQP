@@ -1,4 +1,6 @@
 * text=auto !eol
 /INSTALL.FilterSQP -text
+/README -text
 /configure -text
 /filtersqp.patch -text
+/filtersqp_addlibs.txt.in -text
