@@ -21052,7 +21052,7 @@ fi
 #END
 }
 
-                    ac_config_files="$ac_config_files Makefile filtersqp_addlibs.txt"
+          ac_config_files="$ac_config_files Makefile"
 
 
 
@@ -21744,7 +21744,6 @@ do
   case "$ac_config_target" in
   # Handling of arguments.
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-  "filtersqp_addlibs.txt" ) CONFIG_FILES="$CONFIG_FILES filtersqp_addlibs.txt" ;;
   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}

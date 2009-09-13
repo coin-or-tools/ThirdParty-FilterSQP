@@ -1,4 +1,4 @@
-# Copyright (C) 2003, 2006, 2009 International Business Machines and others.
+# Copyright (C) 2003, 2006 International Business Machines and others.
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
@@ -8,10 +8,9 @@ AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST =
 
-thirdpartylibdir = $(prefix)/lib/ThirdParty
-thirdpartylib_LTLIBRARIES = libfiltersqp.la
+noinst_LTLIBRARIES = libfiltersqp.la
 
-libfiltersqp_la_SOURCES = \
+nodist_libfiltersqp_la_SOURCES = \
 	source/src/auxil.f \
 	source/src/bqpd.f \
 	source/src/filteraux.f \
@@ -24,9 +23,6 @@ libfiltersqp_la_SOURCES = \
 	source/src/wdotd.f
 
 libfiltersqp_la_LDFLAGS = $(LT_LDFLAGS)
-
-addlibsdir = $(prefix)/share/doc/coin/ThirdParty/FilterSQP
-addlibs_DATA = filtersqp_addlibs.txt README
 
 ########################################################################
 #                         Maintainer Stuff                             #

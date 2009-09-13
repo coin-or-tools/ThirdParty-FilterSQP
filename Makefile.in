@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-# Copyright (C) 2003, 2006, 2009 International Business Machines and others.
+# Copyright (C) 2003, 2006 International Business Machines and others.
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
@@ -27,7 +27,6 @@
 ########################################################################
 #                    Documentation installation                        #
 ########################################################################
-
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -51,13 +50,12 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-DIST_COMMON = README $(am__configure_deps) \
+DIST_COMMON = $(am__configure_deps) \
 	$(srcdir)/../../BuildTools/Makemain.inc \
 	$(srcdir)/../../config.guess $(srcdir)/../../config.sub \
 	$(srcdir)/../../install-sh $(srcdir)/../../ltmain.sh \
 	$(srcdir)/../../missing $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in $(srcdir)/filtersqp_addlibs.txt.in \
-	$(top_srcdir)/configure
+	$(srcdir)/Makefile.in $(top_srcdir)/configure
 @HAVE_EXTERNALS_TRUE@am__append_1 = Externals
 @HAVE_EXTERNALS_TRUE@am__append_2 = .Externals-stamp
 subdir = .
@@ -69,21 +67,13 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_CLEAN_FILES = filtersqp_addlibs.txt
-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
-am__vpath_adj = case $$p in \
-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
-    *) f=$$p;; \
-  esac;
-am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(thirdpartylibdir)" \
-	"$(DESTDIR)$(addlibsdir)"
-thirdpartylibLTLIBRARIES_INSTALL = $(INSTALL)
-LTLIBRARIES = $(thirdpartylib_LTLIBRARIES)
+CONFIG_CLEAN_FILES =
+LTLIBRARIES = $(noinst_LTLIBRARIES)
 libfiltersqp_la_LIBADD =
-am_libfiltersqp_la_OBJECTS = auxil.lo bqpd.lo filteraux.lo filter.lo \
-	QPsolves.lo scaling.lo sparseA.lo sparseL.lo util.lo wdotd.lo
-libfiltersqp_la_OBJECTS = $(am_libfiltersqp_la_OBJECTS)
+nodist_libfiltersqp_la_OBJECTS = auxil.lo bqpd.lo filteraux.lo \
+	filter.lo QPsolves.lo scaling.lo sparseA.lo sparseL.lo util.lo \
+	wdotd.lo
+libfiltersqp_la_OBJECTS = $(nodist_libfiltersqp_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir)
 F77COMPILE = $(F77) $(AM_FFLAGS) $(FFLAGS)
 LTF77COMPILE = $(LIBTOOL) --tag=F77 --mode=compile $(F77) $(AM_FFLAGS) \
@@ -91,10 +81,8 @@ LTF77COMPILE = $(LIBTOOL) --tag=F77 --mode=compile $(F77) $(AM_FFLAGS) \
 F77LD = $(F77)
 F77LINK = $(LIBTOOL) --tag=F77 --mode=link $(F77LD) $(AM_FFLAGS) \
 	$(FFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(libfiltersqp_la_SOURCES)
-DIST_SOURCES = $(libfiltersqp_la_SOURCES)
-addlibsDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(addlibs_DATA)
+SOURCES = $(nodist_libfiltersqp_la_SOURCES)
+DIST_SOURCES =
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -241,9 +229,8 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = foreign
 EXTRA_DIST = $(am__append_1)
-thirdpartylibdir = $(prefix)/lib/ThirdParty
-thirdpartylib_LTLIBRARIES = libfiltersqp.la
-libfiltersqp_la_SOURCES = \
+noinst_LTLIBRARIES = libfiltersqp.la
+nodist_libfiltersqp_la_SOURCES = \
 	source/src/auxil.f \
 	source/src/bqpd.f \
 	source/src/filteraux.f \
@@ -256,8 +243,6 @@ libfiltersqp_la_SOURCES = \
 	source/src/wdotd.f
 
 libfiltersqp_la_LDFLAGS = $(LT_LDFLAGS)
-addlibsdir = $(prefix)/share/doc/coin/ThirdParty/FilterSQP
-addlibs_DATA = filtersqp_addlibs.txt README
 
 ########################################################################
 #                         Maintainer Stuff                             #
@@ -304,37 +289,17 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 	cd $(srcdir) && $(AUTOCONF)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
-filtersqp_addlibs.txt: $(top_builddir)/config.status $(srcdir)/filtersqp_addlibs.txt.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-install-thirdpartylibLTLIBRARIES: $(thirdpartylib_LTLIBRARIES)
-	@$(NORMAL_INSTALL)
-	test -z "$(thirdpartylibdir)" || $(mkdir_p) "$(DESTDIR)$(thirdpartylibdir)"
-	@list='$(thirdpartylib_LTLIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    f=$(am__strip_dir) \
-	    echo " $(LIBTOOL) --mode=install $(thirdpartylibLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) '$$p' '$(DESTDIR)$(thirdpartylibdir)/$$f'"; \
-	    $(LIBTOOL) --mode=install $(thirdpartylibLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) "$$p" "$(DESTDIR)$(thirdpartylibdir)/$$f"; \
-	  else :; fi; \
-	done
 
-uninstall-thirdpartylibLTLIBRARIES:
-	@$(NORMAL_UNINSTALL)
-	@set -x; list='$(thirdpartylib_LTLIBRARIES)'; for p in $$list; do \
-	  p=$(am__strip_dir) \
-	  echo " $(LIBTOOL) --mode=uninstall rm -f '$(DESTDIR)$(thirdpartylibdir)/$$p'"; \
-	  $(LIBTOOL) --mode=uninstall rm -f "$(DESTDIR)$(thirdpartylibdir)/$$p"; \
-	done
-
-clean-thirdpartylibLTLIBRARIES:
-	-test -z "$(thirdpartylib_LTLIBRARIES)" || rm -f $(thirdpartylib_LTLIBRARIES)
-	@list='$(thirdpartylib_LTLIBRARIES)'; for p in $$list; do \
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; for p in $$list; do \
 	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
 	  test "$$dir" != "$$p" || dir=.; \
 	  echo "rm -f \"$${dir}/so_locations\""; \
 	  rm -f "$${dir}/so_locations"; \
 	done
 libfiltersqp.la: $(libfiltersqp_la_OBJECTS) $(libfiltersqp_la_DEPENDENCIES) 
-	$(F77LINK) -rpath $(thirdpartylibdir) $(libfiltersqp_la_LDFLAGS) $(libfiltersqp_la_OBJECTS) $(libfiltersqp_la_LIBADD) $(LIBS)
+	$(F77LINK)  $(libfiltersqp_la_LDFLAGS) $(libfiltersqp_la_OBJECTS) $(libfiltersqp_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -390,23 +355,6 @@ clean-libtool:
 distclean-libtool:
 	-rm -f libtool
 uninstall-info-am:
-install-addlibsDATA: $(addlibs_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(addlibsdir)" || $(mkdir_p) "$(DESTDIR)$(addlibsdir)"
-	@list='$(addlibs_DATA)'; for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  f=$(am__strip_dir) \
-	  echo " $(addlibsDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(addlibsdir)/$$f'"; \
-	  $(addlibsDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(addlibsdir)/$$f"; \
-	done
-
-uninstall-addlibsDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(addlibs_DATA)'; for p in $$list; do \
-	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(addlibsdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(addlibsdir)/$$f"; \
-	done
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -459,7 +407,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/. $(distdir)/../.. $(distdir)/../../BuildTools
+	$(mkdir_p) $(distdir)/../.. $(distdir)/../../BuildTools
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
@@ -585,11 +533,8 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES) $(DATA)
+all-am: Makefile $(LTLIBRARIES)
 installdirs:
-	for dir in "$(DESTDIR)$(thirdpartylibdir)" "$(DESTDIR)$(addlibsdir)"; do \
-	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
-	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -617,7 +562,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-thirdpartylibLTLIBRARIES \
+clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
@@ -636,7 +581,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-addlibsDATA install-thirdpartylibLTLIBRARIES
+install-data-am:
 
 install-exec-am:
 
@@ -665,24 +610,21 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-addlibsDATA uninstall-info-am \
-	uninstall-thirdpartylibLTLIBRARIES
+uninstall-am: uninstall-info-am
 
 .PHONY: CTAGS GTAGS all all-am am--refresh check check-am clean \
-	clean-generic clean-libtool clean-thirdpartylibLTLIBRARIES \
-	ctags dist dist-all dist-bzip2 dist-gzip dist-shar dist-tarZ \
-	dist-zip distcheck distclean distclean-compile \
-	distclean-generic distclean-libtool distclean-tags \
-	distcleancheck distdir distuninstallcheck dvi dvi-am html \
-	html-am info info-am install install-addlibsDATA install-am \
-	install-data install-data-am install-exec install-exec-am \
-	install-info install-info-am install-man install-strip \
-	install-thirdpartylibLTLIBRARIES installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
-	uninstall-addlibsDATA uninstall-am uninstall-info-am \
-	uninstall-thirdpartylibLTLIBRARIES
+	clean-generic clean-libtool clean-noinstLTLIBRARIES ctags dist \
+	dist-all dist-bzip2 dist-gzip dist-shar dist-tarZ dist-zip \
+	distcheck distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-tags distcleancheck distdir \
+	distuninstallcheck dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-exec \
+	install-exec-am install-info install-info-am install-man \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags uninstall uninstall-am \
+	uninstall-info-am
 
 
 install-doc: $(DocFiles)

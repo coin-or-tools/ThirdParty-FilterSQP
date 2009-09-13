@@ -51,7 +51,7 @@ AC_COIN_INIT_AUTOMAKE
 # Initialize automake
 AC_COIN_INIT_AUTO_TOOLS
 
-AC_CONFIG_FILES([Makefile filtersqp_addlibs.txt])
+AC_CONFIG_FILES([Makefile])
 
 AC_COIN_FINALIZE
 
