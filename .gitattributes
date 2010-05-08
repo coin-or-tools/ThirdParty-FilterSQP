@@ -1,4 +1,6 @@
 * text=auto !eol
 /INSTALL.FilterSQP -text
+/coinfiltersqp-uninstalled.pc.in -text
+/coinfiltersqp.pc.in -text
 /configure -text
 /filtersqp.patch -text

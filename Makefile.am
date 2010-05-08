@@ -1,4 +1,4 @@
-# Copyright (C) 2003, 2006 International Business Machines and others.
+# Copyright (C) 2003, 2006, 2009 International Business Machines and others.
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
@@ -8,9 +8,10 @@ AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST =
 
-noinst_LTLIBRARIES = libfiltersqp.la
+thirdpartylibdir = $(libdir)/coin/ThirdParty
+thirdpartylib_LTLIBRARIES = libfiltersqp.la
 
-nodist_libfiltersqp_la_SOURCES = \
+libfiltersqp_la_SOURCES = \
 	source/src/auxil.f \
 	source/src/bqpd.f \
 	source/src/filteraux.f \
@@ -24,9 +25,22 @@ nodist_libfiltersqp_la_SOURCES = \
 
 libfiltersqp_la_LDFLAGS = $(LT_LDFLAGS)
 
+if COIN_HAS_PKGCONFIG
+addlibsdir = $(datadir)/coin/doc/ThirdParty/FilterSQP
+addlibs_DATA = filtersqp_addlibs.txt
+
+filtersqp_addlibs.txt : coinfiltersqp.pc
+	PKG_CONFIG_PATH=.:@COIN_PKG_CONFIG_PATH@ --libs coinfiltersqp > filtersqp_addlibs.txt
+endif
+
+pkgconfiglibdir = $(libdir)/pkgconfig
+pkgconfiglib_DATA = coinfiltersqp.pc
+
 ########################################################################
 #                         Maintainer Stuff                             #
 ########################################################################
+
+CLEANFILES = filtersqp_addlibs.txt
 
 # Files that are generated and should be cleaned with make distclean
 DISTCLEANFILES =

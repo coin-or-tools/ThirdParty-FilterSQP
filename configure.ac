@@ -45,13 +45,22 @@ AC_COIN_DEBUG_COMPILE(FilterSQP)
 # Get the name of the Fortran compiler and appropriate compiler options
 AC_COIN_PROG_F77
 
+# Get the linker flags (FLIBS) that are required for linking against this blas library
+AC_COIN_F77_WRAPPERS
+
+# Tell FINALIZE to add FLIBS to ADDLIBS, so that they get into the .pc files
+coin_need_flibs=yes
+
+# Check if pkg-config is available (to setup addlibs file)
+AC_COIN_HAS_PKGCONFIG
+
 # Initialize automake
 AC_COIN_INIT_AUTOMAKE
 
 # Initialize automake
 AC_COIN_INIT_AUTO_TOOLS
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile coinfiltersqp.pc coinfiltersqp-uninstalled.pc])
 
 AC_COIN_FINALIZE
 

@@ -1,0 +1,8 @@
+prefix=@prefix@
+libdir=@ABSBUILDDIR@
+
+Name: FilterSQP
+Description: FilterSQP
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir} -lfiltersqp @ADDLIBS@
+Cflags:
