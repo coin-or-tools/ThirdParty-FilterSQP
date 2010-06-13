@@ -2,5 +2,11 @@
 /INSTALL.FilterSQP -text
 /coinfiltersqp-uninstalled.pc.in -text
 /coinfiltersqp.pc.in -text
+/config.guess -text
+/config.sub -text
 /configure -text
+/depcomp -text
 /filtersqp.patch -text
+/install-sh -text
+/ltmain.sh -text
+/missing -text
