@@ -25,22 +25,26 @@ libfiltersqp_la_SOURCES = \
 
 libfiltersqp_la_LDFLAGS = $(LT_LDFLAGS)
 
-if COIN_HAS_PKGCONFIG
-addlibsdir = $(datadir)/coin/doc/ThirdParty/FilterSQP
-addlibs_DATA = filtersqp_addlibs.txt
-
-filtersqp_addlibs.txt : coinfiltersqp.pc
-	PKG_CONFIG_PATH=.:@COIN_PKG_CONFIG_PATH@ --libs coinfiltersqp > filtersqp_addlibs.txt
-endif
-
 pkgconfiglibdir = $(libdir)/pkgconfig
 pkgconfiglib_DATA = coinfiltersqp.pc
+
+if COIN_HAS_PKGCONFIG
+addlibsdir = $(DESTDIR)$(datadir)/coin/doc/ThirdParty/FilterSQP
+	
+install-data-hook:
+	@$(mkdir_p) "$(addlibsdir)"
+	PKG_CONFIG_PATH=@COIN_PKG_CONFIG_PATH@ \
+	$(PKG_CONFIG) --libs coinfiltersqp > $(addlibsdir)/filtersqp_addlibs.txt
+
+uninstall-hook:
+	rm -f $(addlibsdir)/filtersqp_addlibs.txt
+endif
 
 ########################################################################
 #                         Maintainer Stuff                             #
 ########################################################################
 
-CLEANFILES = filtersqp_addlibs.txt
+CLEANFILES =
 
 # Files that are generated and should be cleaned with make distclean
 DISTCLEANFILES =
