@@ -4,5 +4,5 @@ libdir=@exec_prefix@/lib/ThirdParty
 Name: FilterSQP
 Description: FilterSQP
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -lfiltersqp @ADDLIBS@
+Libs: -L${libdir} -lfiltersqp @FILTERSQP_PCLIBS@
 Cflags:
