@@ -40,6 +40,9 @@ uninstall-hook:
 	rm -f $(addlibsdir)/filtersqp_addlibs.txt
 endif
 
+test: $(libampl)
+	@echo "No test available for FilterSQP."
+
 ########################################################################
 #                         Maintainer Stuff                             #
 ########################################################################
