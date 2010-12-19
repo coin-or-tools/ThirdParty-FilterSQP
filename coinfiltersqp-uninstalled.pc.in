@@ -4,5 +4,5 @@ libdir=@ABSBUILDDIR@
 Name: FilterSQP
 Description: FilterSQP
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -lfiltersqp @FILTERSQP_PCLIBS@
+Libs: ${libdir}/libfiltersqp.la @FILTERSQP_PCLIBS@
 Cflags:
