@@ -1,5 +1,5 @@
 prefix=@prefix@
-libdir=@exec_prefix@/lib/ThirdParty
+libdir=@exec_prefix@/lib
 
 Name: FilterSQP
 Description: FilterSQP

@@ -8,8 +8,7 @@ AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST =
 
-thirdpartylibdir = $(libdir)/coin/ThirdParty
-thirdpartylib_LTLIBRARIES = libfiltersqp.la
+lib_LTLIBRARIES = libfiltersqp.la
 
 libfiltersqp_la_SOURCES = \
 	source/src/auxil.f \
