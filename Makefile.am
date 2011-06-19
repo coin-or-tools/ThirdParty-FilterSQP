@@ -27,19 +27,7 @@ libfiltersqp_la_LDFLAGS = $(LT_LDFLAGS)
 pkgconfiglibdir = $(libdir)/pkgconfig
 pkgconfiglib_DATA = coinfiltersqp.pc
 
-if COIN_HAS_PKGCONFIG
-addlibsdir = $(DESTDIR)$(datadir)/coin/doc/ThirdParty/FilterSQP
-	
-install-data-hook:
-	@$(mkdir_p) "$(addlibsdir)"
-	PKG_CONFIG_PATH=@COIN_PKG_CONFIG_PATH@ \
-	$(PKG_CONFIG) --libs coinfiltersqp > $(addlibsdir)/filtersqp_addlibs.txt
-
-uninstall-hook:
-	rm -f $(addlibsdir)/filtersqp_addlibs.txt
-endif
-
-test: $(libampl)
+test:
 	@echo "No test available for FilterSQP."
 
 ########################################################################
