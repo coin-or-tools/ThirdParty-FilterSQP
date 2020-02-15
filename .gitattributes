@@ -1,5 +1,6 @@
 * text=auto !eol
 /INSTALL.FilterSQP -text
+/LICENSE -text
 /coinfiltersqp-uninstalled.pc.in -text
 /coinfiltersqp.pc.in -text
 /config.guess -text
